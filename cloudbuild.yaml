@@ -1,0 +1,13 @@
+# cloudbuild.yaml
+
+steps:
+  # Step 1: Build Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/hello-world-app', '.']
+
+  # Step 2: Push Docker image to Google Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/hello-world-app']
+
+images:
+  - 'gcr.io/$PROJECT_ID/hello-world-app'
