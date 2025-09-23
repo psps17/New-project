@@ -1,5 +1,6 @@
 # cloudbuild.yaml
-
+options:
+  logging: CLOUD_LOGGING_ONLY
 steps:
   # Step 1: Build Docker image
   - name: 'gcr.io/cloud-builders/docker'
@@ -8,6 +9,19 @@ steps:
   # Step 2: Push Docker image to Google Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/hello-world-app']
+
+  # Step 3: Deploy to Cloud Run with secrets injected
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      [
+        'run', 'deploy', 'hello-world-app',
+        '--image', 'gcr.io/$PROJECT_ID/hello-world-app:$SHORT_SHA',
+        '--region', 'us-central1',
+        '--platform', 'managed',
+        '--allow-unauthenticated',
+        '--service-account', '1006853953442-compute@developer.gserviceaccount.com'
+      ]
 
 images:
   - 'gcr.io/$PROJECT_ID/hello-world-app'
