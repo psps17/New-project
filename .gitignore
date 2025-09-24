@@ -14,5 +14,4 @@ __pycache__/
 # Git itself
 .gitignore
 
-# Docker ignore file (optional)
-.dockerignore
+myenv/
