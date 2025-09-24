@@ -1,20 +1,18 @@
 # Use official Python 3.12 slim image
 FROM python:3.12-slim
 
+# Set working directory inside the container
 WORKDIR /app
 
-# Install dependencies
+# Copy requirements and install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy your Flask app
+# Copy your Flask app code
 COPY . .
 
-# Cloud Run will set PORT environment variable
-ENV PORT=8080
-EXPOSE 8080
+# Expose the default Flask port for local development
+EXPOSE 5000
 
-# Run Gunicorn on the PORT Cloud Run provides
-CMD ["gunicorn", "--bind", "0.0.0.0:$PORT", "app:app"]
-
-
+# Run the Flask dev server
+CMD ["python", "app.py"]
