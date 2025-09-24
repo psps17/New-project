@@ -1,5 +1,18 @@
-myenv/
+# Virtual environment
+venv/
+
+# Python cache
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
+
+# Environment variables / secrets
+.env
+
+# Logs
+*.log
+
+# Git itself
+.gitignore
+
+# Docker ignore file (optional)
+.dockerignore
