@@ -11,7 +11,5 @@ __pycache__/
 # Logs
 *.log
 
-# Git itself
-.gitignore
 
 myenv/
